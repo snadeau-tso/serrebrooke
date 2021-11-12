@@ -7,6 +7,7 @@
 import os
 import glob
 import time
+import json
  
 ## initialiation des pins GPIO
 os.system('modprobe w1-gpio') # active le module GPIO
@@ -68,16 +69,23 @@ while True:
     for device in m_lstDevicesFile:
         posID:int = str(device).find('28')
         # affiche le id du capteur et sa valeur
-        print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
-        stringExport = str("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
+        # print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
+        # stringExport = str("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
+        
         data = {}
-        data['people'] = []
-        data['people'].append({
-          'name': 'Scott',
-          'website': 'stackabuse.com',
-          'from': 'Nebraska'
+        data['CapteurDS18B20'] = []
+        data['CapteurDS18B20'].append({
+          'ID': str(device[posID:-9]),
+          'Temperature': str(read_temp(device)),
         })
- 
+        
+        filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
+
+        with open(filename,'w') as outfile:
+            json.dump(data, outfile)
+      
+        print(data)
+        
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
     print("\n--------------------------------\n")
     time.sleep(2)

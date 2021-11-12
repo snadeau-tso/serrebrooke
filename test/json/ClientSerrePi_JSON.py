@@ -6,10 +6,10 @@
 import json
 import ttLecture_ds18b20
 
-data = ttLecture_ds18b20.stringExport
+print(ttLecture_ds18b20.data)  
 
-filename = '/home/serrepi/src/test/dataCapteurs.json'
+filename = 'dataCapteurs.json'
 
 with open(filename,'w') as outfile:
-    json.dumps(data, outfile)
+    json.dumps(ttLecture_ds18b20.data, outfile)
     
