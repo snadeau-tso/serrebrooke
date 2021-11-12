@@ -66,27 +66,24 @@ def read_temp(capteur:str):
 while True:
     # pour chaque capteur de disponible, on prend sa mesure
     # et on l'affiche au terminal.
+    data = {}
+    data['CapteurDS18B20'] = []
+    
     for device in m_lstDevicesFile:
         posID:int = str(device).find('28')
         # affiche le id du capteur et sa valeur
         # print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
         # stringExport = str("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
         
-        data = {}
-        data['CapteurDS18B20'] = []
         data['CapteurDS18B20'].append({
           'ID': str(device[posID:-9]),
           'Temperature': str(read_temp(device)),
-        })
+        })       
+   
+    print(data)    
+    filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
+    with open(filename,'w') as outfile:
+        json.dump(data, outfile)
         
-        filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
-
-        with open(filename,'w') as outfile:
-            json.dump(data, outfile)
-      
-        print(data)
-        
-    # formatte la sorie au terminal et boucle à l'infinie (pour debug)
-    print("\n--------------------------------\n")
     time.sleep(2)
     

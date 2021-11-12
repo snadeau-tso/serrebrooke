@@ -1,4 +1,4 @@
-from AtlasOEM_PH import AtlasOEM_PH
+import AtlasOEM_PH
 import time
 
 def main(): 

@@ -1,4 +1,4 @@
-from AtlasOEM import AtlasOEM
+from lib.AtlasOEM import AtlasOEM
 
 class AtlasOEM_PH(AtlasOEM):
     
