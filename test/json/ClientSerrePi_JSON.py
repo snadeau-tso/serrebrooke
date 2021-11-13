@@ -4,12 +4,13 @@
 
 ## importations des librairies
 import json
-import ttLecture_ds18b20
+from test.atlas import testAtlasOEM
+from ttLecture_ds18b20 import data
 
-print(ttLecture_ds18b20.data)  
+#data2 = testAtlasOEM.lecturePH
 
-filename = 'dataCapteurs.json'
+
+filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
 
 with open(filename,'w') as outfile:
-    json.dumps(ttLecture_ds18b20.data, outfile)
-    
+    json.dump(data, outfile)    
