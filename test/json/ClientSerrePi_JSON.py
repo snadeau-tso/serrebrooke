@@ -4,11 +4,7 @@
 
 ## importations des librairies
 import json
-from test.atlas import testAtlasOEM
 from ttLecture_ds18b20 import data
-
-#data2 = testAtlasOEM.lecturePH
-
 
 filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
 
