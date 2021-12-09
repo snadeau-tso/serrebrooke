@@ -75,7 +75,7 @@ def pollLectureDS18B20():
         print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
  
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
-    print("--------------------------------\n")
+    #print("--------------------------------\n")
     
     # écriture fihier json
     print(data)            
