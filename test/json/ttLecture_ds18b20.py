@@ -84,6 +84,5 @@ while True:
     filename = '/home/serrepi/src/serrebrooke/test/json/dataCapteurs.json'
     with open(filename,'w') as outfile:
         json.dump(data, outfile)
-
     time.sleep(2)
     

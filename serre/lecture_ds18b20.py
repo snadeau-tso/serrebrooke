@@ -1,12 +1,13 @@
-""" @file lecture_ds18b20.py
-    @date Octobre 2021
-    @brief Fichier pour la lecture des capteurs DS18B20...
+""" @file   lecture_ds18b20.py
+    @date   Décembre 2021
+    @brief  Fichier pour la lecture des capteurs DS18B20...
 """
 
 ## importations des librairies
 import os
 import glob
 import time
+import json
  
 ## initialiation des pins GPIO
 os.system('modprobe w1-gpio') # active le module GPIO
@@ -59,10 +60,13 @@ def read_temp(capteur:str):
         temp_c = float(temp_string) / 1000.0    # conversion des degrés en celcius
         return temp_c
 
-
-# Point d'entrée du programme 
-# Boucle princiaple
-while True:
+def pollLectureDS18B20():
+    ''' Permet de faire la lecture des capteurs DS18B20 à partir d'une
+        classe.
+    '''
+    data = {}
+    data['CapteurDS18B20'] = []
+    
     # pour chaque capteur de disponible, on prend sa mesure
     # et on l'affiche au terminal.
     for device in m_lstDevicesFile:
@@ -71,6 +75,34 @@ while True:
         print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
  
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
-    print("\n--------------------------------\n")
-    time.sleep(2)
+    print("--------------------------------\n")
+    
+    # écriture fihier json
+    print(data)            
+    filename = '/home/serrepi/src/serrebrooke/serre/dataCapteurs.json'
+    with open(filename,'w') as outfile:
+        json.dump(data, outfile)
+    
+    # formatte la sorie au terminal et boucle à l'infinie (pour debug)
+    print("--------------------------------\n")
+    #time.sleep(2)
+
+def main():
+    # Boucle princiaple
+    while True:
+        # pour chaque capteur de disponible, on prend sa mesure
+        # et on l'affiche au terminal.
+        for device in m_lstDevicesFile:
+            posID:int = str(device).find('28')
+            # affiche le id du capteur et sa valeur
+            print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
+    
+        # formatte la sorie au terminal et boucle à l'infinie (pour debug)
+        print("\n--------------------------------\n")
+        time.sleep(2)
+
+# Point d'entrée du programme 
+if __name__ == '__main__':
+    main()
+
     
