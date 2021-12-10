@@ -2,7 +2,7 @@
 
 ''' @file   lectureAtlasI2C.py
     @date   Décembre 2021
-    @brief  Fichier pour la lecture des capteurs Atlas...
+    @brief  Fichier pour la lecture des capteurs Atlas(DO,ORP,PH)
 '''
 
 import io

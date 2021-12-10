@@ -1,13 +1,12 @@
 """ @file   lecture_ds18b20.py
     @date   Décembre 2021
-    @brief  Fichier pour la lecture des capteurs DS18B20...
+    @brief  Fichier pour la lecture des capteurs DS18B20. Les données
 """
 
 ## importations des librairies
 import os
 import glob
 import time
-import json
  
 ## initialiation des pins GPIO
 os.system('modprobe w1-gpio') # active le module GPIO
@@ -16,8 +15,8 @@ os.system('modprobe w1-therm') # active le module température
 ## définitions des fichiers qui contiennent les valeurs de température
 m_devicesPath = '/sys/bus/w1/devices/' # répertoire pour les id des capteurs
 m_lstDevicesFolder = glob.glob(m_devicesPath + '28*') # liste tous les capteurs DS18B20
-m_data = {}
-m_data['CapteurDS18B20'] = []
+m_dataDS18B20 = {}
+m_dataDS18B20['CapteurDS18B20'] = []
 # liste un seul capteur (pour debug)
 #m_deviceFile = m_lstDevicesFolder[0] + '/w1_slave' # fichier slave du capteur ciblé avec la valeur de température
 
@@ -72,12 +71,10 @@ def pollLectureDS18B20():
         posID:int = str(device).find('28')
         # affiche le id du capteur et sa valeur
         print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
-        m_data['CapteurDS18B20'].append({
+        m_dataDS18B20['CapteurDS18B20'].append({
         'ID': str(device[posID:-9]),
         'Temperature': str(read_temp(device)),
         }) 
-    # formatte la sorie au terminal et boucle à l'infinie (pour debug)
-    #print("--------------------------------\n")
     
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
     print("--------------------------------\n")
@@ -95,7 +92,7 @@ def main():
             posID:int = str(device).find('28')
             # affiche le id du capteur et sa valeur
             print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
-            m_data['CapteurDS18B20'].append({
+            m_dataDS18B20['CapteurDS18B20'].append({
                 'ID': str(device[posID:-9]),
                  'Temperature': str(read_temp(device)),
              })       
