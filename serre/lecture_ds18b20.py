@@ -1,6 +1,6 @@
 """ @file   lecture_ds18b20.py
     @date   Décembre 2021
-    @brief  Fichier pour la lecture des capteurs DS18B20. Les données
+    @brief  Fichier pour la lecture des capteurs DS18B20.
 """
 
 ## importations des librairies
