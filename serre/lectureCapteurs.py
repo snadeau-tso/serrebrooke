@@ -6,6 +6,7 @@
 
 import lecture_ds18b20
 import lectureAtlasI2C
+import ClientSerrePi_JSON
 
 
 def main():
@@ -13,6 +14,7 @@ def main():
     while(1):
         lecture_ds18b20.pollLectureDS18B20() # lecture des capteurs 1-Wire et print au terminal
         lectureAtlasI2C.pollAtlas() # lecture des capteurs Atlas et print au terminal
+        ClientSerrePi_JSON.dumpJSON() # Écrit les données dnas le fichier
 
 # Point d'entrée du programme
 if __name__ == '__main__':

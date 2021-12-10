@@ -16,7 +16,8 @@ os.system('modprobe w1-therm') # active le module température
 ## définitions des fichiers qui contiennent les valeurs de température
 m_devicesPath = '/sys/bus/w1/devices/' # répertoire pour les id des capteurs
 m_lstDevicesFolder = glob.glob(m_devicesPath + '28*') # liste tous les capteurs DS18B20
-
+m_data = {}
+m_data['CapteurDS18B20'] = []
 # liste un seul capteur (pour debug)
 #m_deviceFile = m_lstDevicesFolder[0] + '/w1_slave' # fichier slave du capteur ciblé avec la valeur de température
 
@@ -64,8 +65,6 @@ def pollLectureDS18B20():
     ''' Permet de faire la lecture des capteurs DS18B20 à partir d'une
         classe.
     '''
-    data = {}
-    data['CapteurDS18B20'] = []
     
     # pour chaque capteur de disponible, on prend sa mesure
     # et on l'affiche au terminal.
@@ -73,15 +72,12 @@ def pollLectureDS18B20():
         posID:int = str(device).find('28')
         # affiche le id du capteur et sa valeur
         print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
- 
+        m_data['CapteurDS18B20'].append({
+        'ID': str(device[posID:-9]),
+        'Temperature': str(read_temp(device)),
+        }) 
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
     #print("--------------------------------\n")
-    
-    # écriture fihier json
-    print(data)            
-    filename = '/home/serrepi/src/serrebrooke/serre/dataCapteurs.json'
-    with open(filename,'w') as outfile:
-        json.dump(data, outfile)
     
     # formatte la sorie au terminal et boucle à l'infinie (pour debug)
     print("--------------------------------\n")
@@ -89,6 +85,9 @@ def pollLectureDS18B20():
 
 def main():
     # Boucle princiaple
+    data = {}
+    data['CapteurDS18B20'] = []
+    
     while True:
         # pour chaque capteur de disponible, on prend sa mesure
         # et on l'affiche au terminal.
@@ -96,6 +95,10 @@ def main():
             posID:int = str(device).find('28')
             # affiche le id du capteur et sa valeur
             print("Capteur " + str(device[posID:-9]) + ": " + str(read_temp(device)))
+            m_data['CapteurDS18B20'].append({
+                'ID': str(device[posID:-9]),
+                 'Temperature': str(read_temp(device)),
+             })       
     
         # formatte la sorie au terminal et boucle à l'infinie (pour debug)
         print("\n--------------------------------\n")
